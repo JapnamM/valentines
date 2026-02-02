@@ -43,7 +43,7 @@
       font-size: 18px;
       cursor: pointer;
       user-select: none;
-      touch-action: none; /* helps on mobile */
+      touch-action: none; 
       position: absolute;
     }
     #yes {
@@ -105,7 +105,7 @@
     const yesBtn = document.getElementById('yes');
     const msg    = document.getElementById('msg');
 
-    // Place "No" initially somewhere nice
+  
     function setNoPosition(x, y) {
       const pad = 12;
       const s = stage.getBoundingClientRect();
@@ -160,33 +160,33 @@
       const distY = Math.max(b.top  - e.clientY, 0, e.clientY - b.bottom);
       const dist = Math.hypot(distX, distY);
 
-      // When you get close, it runs
+      /
       if (dist < 80) moveNoAway(e.clientX, e.clientY);
     });
 
-    // Make it dodge taps (mobile)
+    
     noBtn.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       moveNoAway(e.clientX, e.clientY);
     });
 
-    // If they click "Yes"
-    yesBtn.addEventListener('click', () => {
+   yesBtn.addEventListener('click', () => {
   msg.style.display = 'block';
   msg.innerHTML = `
     <strong>Yay!! 💘</strong><br/>
-    See you <strong>Wednesday</strong> for more details 😉
+    This just the beginning hehehehhehehehhehehehhehehheheheh see ju sooon bilo 😉
+    <br/>
+    <img class="popup-pic" src="us.jpg" alt="Us ❤️" />
   `;
   noBtn.disabled = true;
   noBtn.style.opacity = 0.6;
 });
-
-    // Initialize "No" somewhere not overlapping the yes button
+   
     window.addEventListener('load', () => {
       setNoPosition(stage.clientWidth - 120, stage.clientHeight - 70);
     });
     window.addEventListener('resize', () => {
-      // keep it inside after resize
+      
       const b = noBtn.getBoundingClientRect();
       const s = stage.getBoundingClientRect();
       setNoPosition(b.left - s.left, b.top - s.top);
