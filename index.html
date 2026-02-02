@@ -172,16 +172,14 @@
 
     // If they click "Yes"
     yesBtn.addEventListener('click', () => {
-      msg.style.display = 'block';
-      msg.innerHTML = `
-        <strong>YAYYYYY! 💞</strong><br/>
-        Best decision ever.<br/>
-        <em>Now you have to claim your Valentine prize: a hug + a date.</em>
-      `;
-      // Optional: disable the no button after yes
-      noBtn.disabled = true;
-      noBtn.style.opacity = 0.6;
-    });
+  msg.style.display = 'block';
+  msg.innerHTML = `
+    <strong>Yay!! 💘</strong><br/>
+    See you <strong>Wednesday</strong> for more details 😉
+  `;
+  noBtn.disabled = true;
+  noBtn.style.opacity = 0.6;
+});
 
     // Initialize "No" somewhere not overlapping the yes button
     window.addEventListener('load', () => {
