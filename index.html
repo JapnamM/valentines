@@ -35,14 +35,14 @@
       overflow:hidden;
     }
 
-  
+    /* Background floating flowers (behind card) */
     .bg-float{
       position: fixed;
       inset: 0;
       pointer-events: none;
       overflow: hidden;
       z-index: -3;
-      opacity: .85;
+      opacity: .9;
     }
     .bg-float .float{
       position:absolute;
@@ -125,13 +125,6 @@
       text-shadow: 0 1px 0 rgba(255,255,255,.5);
     }
 
-    p{
-      margin:0 0 18px;
-      opacity:.85;
-      line-height:1.5;
-      font-size: 16px;
-    }
-
     .hint{
       display:inline-flex;
       align-items:center;
@@ -178,9 +171,7 @@
       user-select:none;
       touch-action:none;
       position:absolute;
-      transform: translateZ(0);
       transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-      will-change: transform;
       z-index: 5;
     }
     .btn:active{ transform: scale(.98); }
@@ -208,38 +199,13 @@
     }
     #no:hover{ transform: translateY(-2px); }
 
-    /* Message modal-ish */
-    .msg{
-      margin-top: 16px;
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(255,240,246,.85);
-      border: 1px solid rgba(255,59,122,.20);
-      display:none;
-      animation: pop .45s cubic-bezier(.2,.9,.2,1) both;
-      position:relative;
-    }
-    @keyframes pop{
-      from{ transform: translateY(8px) scale(.98); opacity:0; }
-      to{ transform: translateY(0) scale(1); opacity:1; }
-    }
-
-    .popup-pic{
-      width: min(360px, 100%);
-      border-radius: 16px;
-      margin-top: 12px;
-      display:block;
-      box-shadow: 0 14px 34px rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.65);
-    }
-
     .small{
       font-size: 13px;
       opacity: .7;
       margin-top: 10px;
     }
 
-    /* Floating hearts layer (inside stage) */
+    
     .float-hearts{
       position: absolute;
       inset: 0;
@@ -261,7 +227,7 @@
       to{ transform: translateY(-420px) translateX(30px) rotate(14deg); opacity: 0; }
     }
 
-    /* Confetti hearts (spawned by JS) */
+    
     .burst{
       position:absolute;
       left:0; top:0;
@@ -273,32 +239,84 @@
       font-size: 18px;
       transform: translate(-50%, -50%);
       animation: fly 900ms ease-out forwards;
-      will-change: transform, opacity;
     }
     @keyframes fly{
       0%{ opacity: 1; transform: translate(-50%,-50%) scale(1); }
       100%{ opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--rot)) scale(.9); }
     }
 
-    /* Little sparkle on stage */
-    .sparkle{
-      position:absolute;
-      width: 8px; height: 8px;
-      border-radius: 999px;
-      background: rgba(255,59,122,.55);
-      box-shadow: 0 0 18px rgba(255,59,122,.35);
-      animation: sparkle 700ms ease-out forwards;
-      pointer-events:none;
-      z-index: 6;
+
+    .modal{
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      z-index: 1000;
     }
-    @keyframes sparkle{
-      from{ transform: translate(-50%,-50%) scale(1); opacity:1; }
-      to{ transform: translate(-50%,-120%) scale(.2); opacity:0; }
+    .modal.on{ display: grid; }
+
+    .modal-backdrop{
+      position:absolute;
+      inset:0;
+      background: rgba(10,10,14,.45);
+      backdrop-filter: blur(8px);
     }
 
-    .btn:focus-visible{
-      outline: 3px solid rgba(255,59,122,.35);
-      outline-offset: 4px;
+    .modal-card{
+      position: relative;
+      width: min(760px, calc(100% - 24px));
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: 22px;
+      box-shadow: 0 26px 80px rgba(0,0,0,.22);
+      padding: 22px 22px 18px;
+      transform: translateY(10px) scale(.98);
+      opacity: 0;
+      animation: modalIn .45s cubic-bezier(.2,.9,.2,1) forwards;
+      max-height: min(84vh, 820px);
+      overflow: auto;
+    }
+    @keyframes modalIn{
+      to{ transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .modal-close{
+      position:absolute;
+      top: 12px;
+      right: 12px;
+      border: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      cursor: pointer;
+      background: rgba(0,0,0,.06);
+      font-size: 18px;
+      font-weight: 900;
+    }
+    .modal-close:hover{ background: rgba(0,0,0,.10); }
+
+    .modal-title{
+      margin: 0 0 10px;
+      font-size: clamp(20px, 3.5vw, 28px);
+      font-weight: 900;
+      letter-spacing: -.01em;
+    }
+
+    .modal-text{
+      margin: 0;
+      line-height: 1.55;
+      font-size: 16px;
+      opacity: .92;
+      white-space: pre-wrap;
+    }
+
+    .popup-pic{
+      width: min(420px, 100%);
+      border-radius: 16px;
+      margin-top: 14px;
+      display:block;
+      box-shadow: 0 14px 34px rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.65);
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -320,7 +338,7 @@
     <div class="shine"></div>
 
     <h1>Prabhdeeep 💕 — Will you be my Valentine? 💘</h1>
-    <div class="hint">⚠️ (🤓.)</div>
+    <div class="hint">⚠️ (You are required by law to choose correctly.)</div>
 
     <div class="stage" id="stage" aria-label="Valentine question area">
       <div class="float-hearts" id="floatHearts"></div>
@@ -329,20 +347,60 @@
       <button class="btn" id="no">No 🙃</button>
     </div>
 
-    <div class="msg" id="msg"></div>
     <div class="small">UR ALLL MINE 😈</div>
+  </div>
+
+  <!-- POPUP MODAL -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Valentine message">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <h2 class="modal-title">💘 For you, Heer meri</h2>
+      <p class="modal-text" id="modalText"></p>
+      <img class="popup-pic" src="us.jpg" alt="Us ❤️" />
+    </div>
   </div>
 
   <script>
     const stage = document.getElementById('stage');
     const noBtn  = document.getElementById('no');
     const yesBtn = document.getElementById('yes');
-    const msg    = document.getElementById('msg');
 
     const floatHearts = document.getElementById('floatHearts');
     const bgFloat = document.getElementById('bgFloat');
 
-    // --- helpers
+    const modal = document.getElementById("modal");
+    const modalText = document.getElementById("modalText");
+    const modalClose = document.getElementById("modalClose");
+    const modalBackdrop = document.getElementById("modalBackdrop");
+
+    
+    const LOVE_MESSAGE = `Happy Valentine’s Day Heer meri 💘
+  Each day my love grows, Heer meri 💘 Love that I get to be here with you — with you beside me. Jatt bas marda tera ta sohniye, you mean the world to me 😍
+
+You genuinely make my days better in the smallest ways… like even if my day is heavy
+teri awaaz  tera text and suddenly it feels lighter. Tu hassdi aa te lagda sab kuch theek ho gaya. 
+
+When you’re happy my mood automatically gets fixed. When you’re close to me, life just feels right.
+Tere curly baal… uff 🫠 and those dimples when you smile It’s my favourite sight 
+Honestly tu ehni sohni aa ke jatt da dil khush kar dendi 
+teri photo vekh ke vi mera din ban janda 😈💗
+And look at us… we’ve already made so many memories together 
+the laughs, the little inside jokes, the random moments that became my favourites, 
+the times we were just sitting doing nothing but it still felt perfect because it was with you
+I don’t even need big plan tere naal ordinary vi special lagda.
+
+That’s why I want this website to be our timescape 
+a place where our valentine moments, our pictures, our memories stay forever. 
+And I swear this is just the beginning so many more memories to come, more dates, more adventures, more “us”, more moments where I look at you and think “yea this is my sardarni”
+
+You make me feel like the real king 👑 
+like I’m winning at life just because I have you. Everything is better with you.
+Rabb ne mainu tu bakhshi aa  God blessed me with you, for real.
+
+I love you, Heer meri. Always. 💞`;
+
+
     const clamp = (n, a, b) => Math.max(a, Math.min(n, b));
     const rand = (a,b) => a + Math.random()*(b-a);
 
@@ -353,11 +411,8 @@
       const maxX = s.width  - b.width  - pad;
       const maxY = s.height - b.height - pad;
 
-      const clampedX = clamp(x, pad, maxX);
-      const clampedY = clamp(y, pad, maxY);
-
-      noBtn.style.left = clampedX + "px";
-      noBtn.style.top  = clampedY + "px";
+      noBtn.style.left = clamp(x, pad, maxX) + "px";
+      noBtn.style.top  = clamp(y, pad, maxY) + "px";
       noBtn.style.right = "auto";
       noBtn.style.bottom = "auto";
     }
@@ -375,10 +430,8 @@
         const dx = x - avoidX, dy = y - avoidY;
         if ((dx*dx + dy*dy) > 150*150) return {x, y};
       }
-      return {
-        x: pad + Math.random() * Math.max(1, maxX - pad),
-        y: pad + Math.random() * Math.max(1, maxY - pad)
-      };
+      return { x: pad + Math.random() * Math.max(1, maxX - pad),
+               y: pad + Math.random() * Math.max(1, maxY - pad) };
     }
 
     function moveNoAway(clientX, clientY) {
@@ -387,16 +440,14 @@
       const py = clientY - s.top;
 
       const pos = randomNoPosition(px, py);
-
       noBtn.animate(
         [{ transform: "translateY(0)" }, { transform: "translateY(-2px)" }, { transform: "translateY(0)" }],
         { duration: 220, easing: "ease-out" }
       );
-
       setNoPosition(pos.x, pos.y);
     }
 
-    // --- floating hearts inside the stage
+    
     const heartGlyphs = ["💗","💘","💖","💞","💕","💓","💝"];
     function spawnStageHeart(){
       const h = document.createElement("div");
@@ -412,7 +463,7 @@
     for(let i=0;i<10;i++) setTimeout(spawnStageHeart, i*450);
     setInterval(spawnStageHeart, 650);
 
-    // --- floating flowers in the PAGE background (behind card)
+    // --- floating flowers in the page background
     const flowerGlyphs = ["🌸","🌷","🌹","🌺","💐","🌼"];
     function spawnBgFlower(){
       const el = document.createElement("div");
@@ -422,33 +473,18 @@
       el.style.fontSize = rand(14, 34) + "px";
       el.style.opacity = rand(0.25, 0.8).toFixed(2);
       el.style.animationDuration = rand(8, 16) + "s";
-      el.style.transform = `translateX(${rand(-10,10).toFixed(0)}px)`;
       bgFloat.appendChild(el);
       setTimeout(() => el.remove(), 18000);
     }
-    // start a nice flow
     for(let i=0;i<18;i++) setTimeout(spawnBgFlower, i*300);
     setInterval(spawnBgFlower, 520);
 
-    // --- sparkle effect on hover/move inside stage
-    function sparkleAt(x, y){
-      const s = document.createElement("div");
-      s.className = "sparkle";
-      s.style.left = x + "px";
-      s.style.top  = y + "px";
-      stage.appendChild(s);
-      setTimeout(() => s.remove(), 800);
-    }
-
+    // no button run-away behavior
     stage.addEventListener("mousemove", (e) => {
-      const rect = stage.getBoundingClientRect();
-      if (Math.random() < 0.10) sparkleAt(e.clientX - rect.left, e.clientY - rect.top);
-
       const b = noBtn.getBoundingClientRect();
       const distX = Math.max(b.left - e.clientX, 0, e.clientX - b.right);
       const distY = Math.max(b.top  - e.clientY, 0, e.clientY - b.bottom);
       const dist = Math.hypot(distX, distY);
-
       if (dist < 90) moveNoAway(e.clientX, e.clientY);
     });
 
@@ -457,7 +493,7 @@
       moveNoAway(e.clientX, e.clientY);
     });
 
-    // --- confetti heart burst in the stage
+    // --- confetti burst in the stage
     function burstAt(el){
       const r = el.getBoundingClientRect();
       const s = stage.getBoundingClientRect();
@@ -466,8 +502,6 @@
 
       const wrap = document.createElement("div");
       wrap.className = "burst";
-      wrap.style.left = "0";
-      wrap.style.top  = "0";
       stage.appendChild(wrap);
 
       const pieces = 26;
@@ -487,10 +521,8 @@
         p.style.setProperty("--dy", dy.toFixed(0) + "px");
         p.style.setProperty("--rot", ((Math.random()*120)-60).toFixed(0) + "deg");
         p.style.fontSize = (14 + Math.random()*18) + "px";
-
         wrap.appendChild(p);
       }
-
       setTimeout(() => wrap.remove(), 1000);
     }
 
@@ -510,12 +542,10 @@
 
     let fireworksRunning = false;
     let stopAt = 0;
-
     const rockets = [];
     const sparks = [];
 
     function pastelColor(){
-      // soft bright-ish colors
       const hues = [330, 350, 10, 25, 290, 210, 170];
       const h = hues[Math.floor(Math.random()*hues.length)];
       const s = rand(70, 95);
@@ -558,26 +588,22 @@
     function tickFireworks(){
       if(!fireworksRunning) return;
 
-     
       ctx.fillStyle = "rgba(0,0,0,0.18)";
       ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
 
-    
       if (performance.now() < stopAt && Math.random() < 0.22) launchRocket();
 
-      
       for(let i=rockets.length-1;i>=0;i--){
         const r = rockets[i];
         r.life += 1;
         r.x += r.vx;
         r.y += r.vy;
-        r.vy += 0.12; 
-        
+        r.vy += 0.12;
+
         ctx.beginPath();
         ctx.fillStyle = r.color;
         ctx.arc(r.x, r.y, 2.2, 0, Math.PI*2);
         ctx.fill();
-
 
         if (r.y <= r.target || r.life > 70){
           explode(r.x, r.y, r.color);
@@ -600,13 +626,10 @@
         ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
         ctx.fill();
 
-        if(p.alpha <= 0){
-          sparks.splice(i,1);
-        }
+        if(p.alpha <= 0) sparks.splice(i,1);
       }
       ctx.globalAlpha = 1;
 
-      
       if(performance.now() > stopAt && rockets.length === 0 && sparks.length === 0){
         fireworksRunning = false;
         fw.classList.remove("on");
@@ -617,47 +640,61 @@
       requestAnimationFrame(tickFireworks);
     }
 
-    function startFireworks(ms=2600){
+    function startFireworks(ms=3000){
       stopAt = performance.now() + ms;
       fw.classList.add("on");
       fireworksRunning = true;
-
-
       for(let i=0;i<4;i++) setTimeout(launchRocket, i*140);
       requestAnimationFrame(tickFireworks);
     }
 
   
+    function openModal(){
+      modalText.textContent = LOVE_MESSAGE;
+      modal.classList.add("on");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      modal.classList.remove("on");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    modalClose.addEventListener("click", closeModal);
+    modalBackdrop.addEventListener("click", closeModal);
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("on")) closeModal();
+    });
+
+    let yesLocked = false;
     yesBtn.addEventListener("click", () => {
+      if (yesLocked) return;
+      yesLocked = true;
+
       burstAt(yesBtn);
-      startFireworks(3000);
 
-      msg.style.display = "block";
-      msg.innerHTML = `
-        <div style="font-size:18px; font-weight:900;">Yay!! 💘</div>
-        <div style="margin-top:6px; opacity:.9; line-height:1.45;">
-          SEEE YOU SOON HEHEHEHEHEHHEHEHEHHEHEHEHEHEHEHEHEHEHEHE LOVE U BILO
-          <span style="opacity:.8;">(This is just for fun more coming soon)</span> 😉
-        </div>
-        <img class="popup-pic" src="us.jpg" alt="Us ❤️" />
-      `;
-
+      
       noBtn.disabled = true;
       noBtn.style.opacity = 0.55;
       noBtn.style.cursor = "not-allowed";
 
-      stage.animate(
-        [{ transform:"translateY(0)" }, { transform:"translateY(-2px)" }, { transform:"translateY(0)" }],
-        { duration: 380, easing:"ease-out" }
-      );
+      
+      const FIREWORK_MS = 3000;
+      startFireworks(FIREWORK_MS);
+
+      
+      setTimeout(() => {
+        openModal();
+      }, FIREWORK_MS + 200);
     });
 
-
+  
     window.addEventListener("load", () => {
       setNoPosition(stage.clientWidth - 130, stage.clientHeight - 78);
     });
 
- 
     window.addEventListener("resize", () => {
       const b = noBtn.getBoundingClientRect();
       const s = stage.getBoundingClientRect();
